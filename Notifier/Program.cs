@@ -2,9 +2,13 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello, World!");
+            var emailService = new EmailService();
+
+            var notifier = new NotificationService(emailService);
+
+            notifier.SendNotification("This message needs to be sent");
         }
     }
 }
