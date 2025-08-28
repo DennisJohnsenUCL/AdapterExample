@@ -1,13 +1,18 @@
-﻿namespace Notifier
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace Notifier
 {
     internal class Program
     {
         static void Main()
         {
-            var emailService = new EmailService();
-            var emailServiceAdapter = new EmailServiceAdapter(emailService);
+            var services = new ServiceCollection()
+                .AddScoped<EmailService>()
+                .AddScoped<INotifier, EmailServiceAdapter>()
+                .AddScoped<NotificationService>()
+                .BuildServiceProvider();
 
-            var notifier = new NotificationService(emailServiceAdapter);
+            var notifier = services.GetRequiredService<NotificationService>();
 
             notifier.SendNotification("This message needs to be sent");
         }
