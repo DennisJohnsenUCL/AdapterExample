@@ -1,6 +1,6 @@
 ﻿namespace Notifier
 {
-    internal class EmailService
+    public class EmailService
     {
         public void SendEmail(string subject, string body)
         {
